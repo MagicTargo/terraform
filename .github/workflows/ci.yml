@@ -30,4 +30,18 @@ jobs:
         run: terraform -chdir=terraform-code init 
 
       - name: Terraform plan
-        run: terraform -chdir=terraform-code plan -detailed-exitcode -out tfplan
+        run:
+          export exitcode=0 
+          terraform -chdir=terraform-code plan -detailed-exitcode -out tfplan || export exitcode=$?
+
+          echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
+
+          if [ $exitcode -eq 1 ]; then
+            echo Terraform Plan Failed!
+            exit 1
+          else
+            exit 0
+          fi
+      
+      - name: Apply
+        run: terrafom apply "tfplan"
