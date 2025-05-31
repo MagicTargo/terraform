@@ -32,7 +32,7 @@ jobs:
       - name: Terraform plan
         run: |
           export exitcode=0 
-          terraform -chdir=terraform-code plan -detailed-exitcode -out tfplan || export exitcode=$?
+          terraform -chdir=terraform-code plan -detailed-exitcode -out main.tfplan || export exitcode=$?
 
           echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
 
@@ -44,4 +44,4 @@ jobs:
           fi
       
       - name: Apply
-        run: terraform apply "tfplan"
+        run: terraform -chdir=terraform-code apply "main.tfplan"
