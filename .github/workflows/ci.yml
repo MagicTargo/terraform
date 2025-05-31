@@ -30,7 +30,7 @@ jobs:
         run: terraform -chdir=terraform-code init 
 
       - name: Terraform plan
-        run:
+        run: |
           export exitcode=0 
           terraform -chdir=terraform-code plan -detailed-exitcode -out tfplan || export exitcode=$?
 
