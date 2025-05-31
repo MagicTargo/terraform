@@ -5,5 +5,5 @@ variable "repository_full_name" {
 
 variable "environment" {
   type    = string
-  default = "development"
+  default = "devv"
 }
