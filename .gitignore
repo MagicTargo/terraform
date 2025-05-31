@@ -1,3 +1,5 @@
 # Terraform provider binaries and plugin cache
 .terraform/
 .terraform.lock.hcl
+*.tfstate
+*.tfstate.backup

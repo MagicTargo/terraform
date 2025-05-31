@@ -8,4 +8,5 @@ terraform {
 }
 
 # Configure the GitHub Provider
-provider "github" {}
+provider "github" {
+}
