@@ -44,4 +44,4 @@ jobs:
           fi
       
       - name: Apply
-        run: terrafom apply "tfplan"
+        run: terraform apply "tfplan"
