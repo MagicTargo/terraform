@@ -1,10 +1,9 @@
 variable "repository_full_name" {
-    type = string
-    default = "terraform"
+  type    = string
+  default = "terraform"
 }
 
 variable "environment" {
-    type = string
-    default = "dev"
-
+  type    = string
+  default = "dev"
 }
