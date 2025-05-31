@@ -25,6 +25,9 @@ jobs:
       
       - name: Terraform Format and Validate
         run: terraform fmt -check terraform-code
+      
+      - name: Terraform init
+        run: terraform -chdir=terraform-code init 
 
       - name: Terraform plan
         run: terraform -chdir=terraform-code plan -detailed-exitcode -out tfplan
