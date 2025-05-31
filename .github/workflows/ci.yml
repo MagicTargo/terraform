@@ -11,7 +11,20 @@ jobs:
       GITHUB_OWNER: "smohite"
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
+
       - uses: actions/checkout@v4
 
       - name: Run a one-line script
         run: echo Hello, world!
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+          terraform_version: "1.9.3"
+      
+      - name: Terraform Format and Validate
+        run: terraform fmt -check terraform-code
+
+      - name: Terraform plan
+        run: terraform -chdir=terraform-code plan -detailed-exitcode -out tfplan
