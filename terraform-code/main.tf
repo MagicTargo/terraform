@@ -1,14 +1,6 @@
 resource "terraform_data" "check_file_exists" {
   provisioner "local-exec" {
-    command = <<EOT
-      gh api repos/${var.repository_full_name}/contents/clusters/${var.environment}/kustomization.yaml \
-        --jq .sha 2>/dev/null || \
-      gh api repos/${var.repository_full_name}/contents/clusters/${var.environment}/kustomization.yaml \
-        --method PUT \
-        --field message='Kustomization via TF' \
-        --field content='Hello' \
-        --field branch='main'
-    EOT
+    command = "bash scripts/create_kustomization.sh ${var.repository_full_name} ${var.environment}"
   }
 }
 
