@@ -1,6 +1,6 @@
 variable "repository_full_name" {
   type    = string
-  default = "terraform"
+  default = "MagicTargo/terraform"
 }
 
 variable "environment" {
