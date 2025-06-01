@@ -6,5 +6,5 @@ resource "github_repository_file" "flux_kustomization" {
   commit_message      = "Kustomization for via TF"
   commit_author       = "Terraform GitHub Actions"
   commit_email        = "terraform-gha@apollo.com"
-  overwrite_on_create = true
+  overwrite_on_create = false
 }
