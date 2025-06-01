@@ -1,6 +1,6 @@
 resource "terraform_data" "check_file_exists" {
   provisioner "local-exec" {
-    command = "bash scripts/create_kustomization.sh ${var.repository_full_name} ${var.environment}"
+    command = "bash ${path.root}/../scripts/create_kustomization.sh ${var.repository_full_name} ${var.environment}"
   }
 }
 
