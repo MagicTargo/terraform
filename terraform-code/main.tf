@@ -10,7 +10,7 @@ resource "null_resource" "check_file_exists" {
         --field branch='main'
     EOT
   }
-  
+
 }
 
 # resource "github_repository_file" "flux_kustomization" {
