@@ -6,7 +6,7 @@ GIT_URL="$1"
 KUSTOMIZATION_PATH="$2"
 BRANCH="main"
 
-REPO=$(basename "$GIT_URL")
+REPO_NAME=$(basename "$GIT_URL")
 CLONE_DIR="/tmp/${REPO_NAME}"
 FILE="${KUSTOMIZATION_PATH}/kustomization.yaml"
 CONTENT="hello world"
