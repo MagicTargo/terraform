@@ -30,5 +30,5 @@ else
     --field content="${CONTENT}" \
     --field branch="${BRANCH}"
   echo "File created"
-  sleep 5
+  sleep 20
 fi
