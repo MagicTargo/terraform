@@ -11,16 +11,16 @@ CLONE_DIR="/tmp/${REPO_NAME}"
 FILE="${KUSTOMIZATION_PATH}/kustomization.yaml"
 CONTENT="hello world"
 
-# Configure git
-git config user.email "terraform-gha@apollo.com"
-git config user.name "Terraform GitHub Actions"
+
 # Clone the repo
 sudo rm -rf $CLONE_DIR
 git clone "$GIT_URL" "$CLONE_DIR"
 
 # Change to repo directory
 cd "$CLONE_DIR"
-
+# Configure git
+git config user.email "terraform-gha@apollo.com"
+git config user.name "Terraform GitHub Actions"
 # Checkout to the desired branch
 git checkout "$BRANCH"
 
