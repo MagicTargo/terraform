@@ -14,6 +14,9 @@ REPO_NAME="${OWNER}/${REPO%.git}"
 FILE="${KUSTOMIZATION_PATH}/kustomization.yaml"
 CONTENT=$(echo -n "hello world" | base64)
 
+# Fetch latest commit SHA from the target branch before doing anything
+gh api "repos/${REPO_NAME}/commits/${BRANCH}" --jq .sha
+
 echo "Checking for file: ${FILE} in repo: ${REPO_NAME}"
 
 if gh api "repos/${REPO_NAME}/contents/${FILE}" --jq .sha > /dev/null 2>&1; then
