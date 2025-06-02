@@ -9,4 +9,5 @@ locals {
       kustomization_path = join("/", ["clusters", "stg", "main"])
     }
   }
+  ordered_flux_conf_keys = sort(keys(local.flux_conf))
 }
