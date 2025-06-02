@@ -12,8 +12,8 @@ FILE="${KUSTOMIZATION_PATH}/kustomization.yaml"
 CONTENT="hello world"
 
 # Configure git
-git config --global user.email "terraform-gha@apollo.com"
-git config --global user.name "Terraform GitHub Actions"
+git config --local user.email "terraform-gha@apollo.com"
+git config --local user.name "Terraform GitHub Actions"
 # Clone the repo
 git clone "$GIT_URL" "$CLONE_DIR"
 
