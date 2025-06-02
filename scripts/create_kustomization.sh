@@ -15,7 +15,8 @@ FILE="${KUSTOMIZATION_PATH}/kustomization.yaml"
 CONTENT=$(echo -n "hello world" | base64)
 
 # Fetch latest commit SHA from the target branch before doing anything
-gh api "repos/${REPO_NAME}/commits/${BRANCH}" --jq .sha
+LATEST_COMMIT_SHA=$(gh api repos/${REPO_NAME}/git/ref/heads/${BRANCH} --jq .object.sha)
+echo "Using latest commit SHA: $LATEST_COMMIT_SHA"
 
 echo "Checking for file: ${FILE} in repo: ${REPO_NAME}"
 
