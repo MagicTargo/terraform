@@ -32,6 +32,7 @@ else
   echo "$CONTENT" > "$FILE"
   git add "$FILE"
   git commit -m "Added $FILE"
+  git pull
   git push origin "$BRANCH"
   echo "File created and pushed successfully"
   sudo rm -rf $CLONE_DIR
