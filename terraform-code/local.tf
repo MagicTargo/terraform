@@ -1,12 +1,20 @@
 locals {
   flux_conf = {
-    bootstrap = {
+    app1 = {
       git_repo_url       = "https://github.com/MagicTargo/terraform.git"
-      kustomization_path = join("/", ["clusters", "dev", "bootstrap"])
+      kustomization_path = join("/", ["clusters", "dev", "app1"])
     }
-    core = {
+    app2 = {
       git_repo_url       = "https://github.com/MagicTargo/terraform.git"
-      kustomization_path = join("/", ["clusters", "stg", "main"])
+      kustomization_path = join("/", ["clusters", "dev", "app2"])
+    }
+    app3 = {
+      git_repo_url       = "https://github.com/MagicTargo/FirstRepo.git"
+      kustomization_path = join("/", ["clusters", "dev", "app3"])
+    }
+    app4 = {
+      git_repo_url       = "https://github.com/MagicTargo/FirstRepo.git"
+      kustomization_path = join("/", ["clusters", "stg", "app4"])
     }
   }
 }
