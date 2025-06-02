@@ -30,5 +30,6 @@ flock "$LOCKFILE" -c "
       --field message='Kustomization created via TF' \
       --field content='${CONTENT}' \
       --field branch='${BRANCH}'
+    echo 'Created file: ${FILE}'
   fi
 "
