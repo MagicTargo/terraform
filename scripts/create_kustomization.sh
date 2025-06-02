@@ -17,10 +17,6 @@ CONTENT=$(echo -n "hello world" | base64)
 # Define lock file based on the repo name to prevent simultaneous access
 LOCKFILE="/tmp/$(basename "$GIT_URL").lock"
 
-# Fetch latest commit SHA from the target branch before doing anything
-LATEST_COMMIT_SHA=$(gh api repos/${REPO_NAME}/git/ref/heads/${BRANCH} --jq .object.sha)
-echo "Using latest commit SHA: $LATEST_COMMIT_SHA"
-
 echo "Checking for file: ${FILE} in repo: ${REPO_NAME}"
 
 # Acquire the lock using flock to ensure only one script modifies the repo at a time
@@ -30,6 +26,7 @@ flock "$LOCKFILE" -c '
     echo "File already exists: ${FILE}"
   else
     echo "Kustomization file not found. Creating file: ${FILE}"
+    echo "gh api repos/${REPO_NAME}/contents/${FILE}"
     # Create the file using GitHub API with the base64 content
     gh api "repos/${REPO_NAME}/contents/${FILE}" \
       --method PUT \
