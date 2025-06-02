@@ -9,5 +9,12 @@ locals {
       kustomization_path = join("/", ["clusters", "stg", "main"])
     }
   }
-  ordered_flux_conf_keys = sort(keys(local.flux_conf))
+    # Get the list of keys in order
+  flux_keys = keys(local.flux_conf)
+
+  # Build a map of key -> list of dependency keys (simulate sequence)
+  flux_depends_on = {
+    for i, key in local.flux_keys :
+    key => i == 0 ? [] : [local.flux_keys[i - 1]]
+}
 }

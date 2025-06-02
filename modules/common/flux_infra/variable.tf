@@ -3,6 +3,6 @@ variable "flux_conf" {
   type        = map(any)
 }
 
-variable "ordered_flux_conf_keys" {
-  
+variable "flux_depends_on" {
+  type = map(list(string))
 }

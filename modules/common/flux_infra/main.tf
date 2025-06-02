@@ -1,12 +1,12 @@
 resource "terraform_data" "check_kustomization_file" {
-  for_each = local.indexed_flux_conf
+  for_each = var.flux_conf
 
   provisioner "local-exec" {
-    command = "bash ${path.root}/../scripts/create_kustomization.sh ${each.value.config.git_repo_url} ${each.value.config.kustomization_path}"
+    command = "bash ${path.root}/../scripts/create_kustomization.sh ${each.value.git_repo_url} ${each.value.kustomization_path}"
   }
 
-  # Add depends_on dynamically if it's not the first item
-  depends_on = each.value.index > 0 ? [
-    terraform_data.check_kustomization_file[local.ordered_flux_conf_keys[each.value.index - 1]]
-  ] : []
+  # Dynamically reference earlier terraform_data resources
+  depends_on = [
+    for dep_key in var.flux_depends_on[each.key] : terraform_data.check_kustomization_file[dep_key]
+  ]
 }
