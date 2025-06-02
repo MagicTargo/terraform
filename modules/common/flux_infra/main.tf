@@ -17,3 +17,12 @@ resource "terraform_data" "check_kustomization_file" {
     command = "bash ${path.root}/../scripts/create_kustomization.sh ${each.value.git_repo_url} ${each.value.kustomization_path}"
   }
 }
+
+data "local_file" "status" {
+  filename = "/tmp/.output.txt"
+  depends_on = [ terraform_data.check_kustomization_file ]
+}
+
+output "status" {
+  value = data.local_file.status.content
+}

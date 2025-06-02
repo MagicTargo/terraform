@@ -10,6 +10,7 @@ BRANCH="main"
 REPO=$(basename "$GIT_URL")
 OWNER=$(basename "$(dirname "$GIT_URL")")
 REPO_NAME="${OWNER}/${REPO%.git}"
+TEMP_OUTPUT_FILE="/tmp/.output.txt"
 
 FILE="${KUSTOMIZATION_PATH}/kustomization.yaml"
 CONTENT=$(echo -n "hello world" | base64)
@@ -22,7 +23,7 @@ echo "Checking for file: ${FILE} in repo: ${REPO_NAME}"
 # using flock to aquire lock to ensure only one script modifies the repo at a time
 flock "$LOCKFILE" -c "
   if gh api repos/${REPO_NAME}/contents/${FILE} --jq .sha > /dev/null 2>&1; then
-    echo 'File already exists: ${FILE}'
+    echo 'File on ${REPO_NAME} already exists: ${FILE}' >> "$TEMP_OUTPUT_FILE"
   else
     echo 'Creating file: ${FILE}'
     gh api repos/${REPO_NAME}/contents/${FILE} \
@@ -30,6 +31,6 @@ flock "$LOCKFILE" -c "
       --field message='Kustomization created via TF' \
       --field content='${CONTENT}' \
       --field branch='${BRANCH}'
-    echo 'Created file: ${FILE}'
+    echo 'Created file on ${REPO_NAME}: ${FILE}' >> "$TEMP_OUTPUT_FILE"
   fi
 "
