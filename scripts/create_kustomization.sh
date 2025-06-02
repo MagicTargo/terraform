@@ -3,7 +3,8 @@
 set -e
 
 GIT_URL="$1"                              
-KUSTOMIZATION_PATH="$2" 
+KUSTOMIZATION_PATH="$2"
+BRANCH="main"
 
 # Converting Git URL to "owner/repo" format
 REPO=$(basename "$GIT_URL")
