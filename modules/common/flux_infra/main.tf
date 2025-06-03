@@ -18,11 +18,3 @@ resource "terraform_data" "check_kustomization_file" {
   }
 }
 
-data "local_file" "status" {
-  filename = "/tmp/.output.txt"
-  depends_on = [ terraform_data.check_kustomization_file ]
-}
-
-output "status" {
-  value = data.local_file.status.content
-}

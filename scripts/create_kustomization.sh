@@ -4,13 +4,14 @@ set -e
 
 GIT_URL="$1"
 KUSTOMIZATION_PATH="$2"
+TEMP_OUTPUT_FILE="/tmp/output.txt"
 BRANCH="main"
 
 # Converting Git URL to "owner/repo" format
 REPO=$(basename "$GIT_URL")
 OWNER=$(basename "$(dirname "$GIT_URL")")
 REPO_NAME="${OWNER}/${REPO%.git}"
-TEMP_OUTPUT_FILE="/tmp/.output.txt"
+
 
 FILE="${KUSTOMIZATION_PATH}/kustomization.yaml"
 CONTENT=$(echo -n "hello world" | base64)
