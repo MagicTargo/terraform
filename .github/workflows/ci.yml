@@ -53,5 +53,4 @@ jobs:
 
       - name: Output 
         run: |
-          cat /tmp/.output.txt
           terraform -chdir=terraform-code output 
