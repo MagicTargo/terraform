@@ -18,10 +18,8 @@ FILE="${KUSTOMIZATION_PATH}/kustomization.yaml"
 LOCKFILE="/tmp/$(basename "$GIT_URL").lock"
 
 # using flock to aquire lock to ensure only one script modifies the repo at a time
-flock "$LOCKFILE" -c "
-  if gh api repos/${REPO_NAME}/contents/${FILE} --silent --jq .sha > /dev/null 2>&1; then
-    echo '{ "file_exists": true }'
-  else
-    echo '{ "file_exists": false }'
-  fi
-"
+if gh api repos/"$REPO_URL"/contents/"$FILE_PATH" --silent &> /dev/null; then
+  echo "{\"exists\": \"true\"}"
+else
+  echo "{\"exists\": \"false\"}"
+fi

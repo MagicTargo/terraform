@@ -34,10 +34,9 @@ data "external" "check_file" {
 #   }
 # }
 
-output "skipped_flux_files" {
+output "flux_file_check_results" {
   value = {
-    for k, v in var.flux_conf :
-    k => v.file_path
-    if data.external.check_file[k].result["file_exists"] == true
+    for k, v in data.external.check_file :
+    k => v.result
   }
 }
