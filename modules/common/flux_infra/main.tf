@@ -10,11 +10,32 @@
 # }
 
 
-resource "terraform_data" "check_kustomization_file" {
-  for_each = var.flux_conf
+# resource "terraform_data" "check_kustomization_file" {
+#   for_each = var.flux_conf
 
-  provisioner "local-exec" {
-    command = "bash ${path.root}/../scripts/create_kustomization.sh ${each.value.git_repo_url} ${each.value.kustomization_path}"
-  }
+#   provisioner "local-exec" {
+#     command = "bash ${path.root}/../scripts/create_kustomization.sh ${each.value.git_repo_url} ${each.value.kustomization_path}"
+#   }
+# }
+
+
+data "github_repository_file" "fetch_kustomization" {
+  for_each = var.team_flux_conf.team.kustomizations
+
+  repository = regex("github.com/([^/]+/[^\\.]+)", var.team_flux_conf.team.git_repo_url)[0]
+  file       = "${each.value.path}/kustomization.yaml"
+  branch     = "main"
 }
 
+
+output "fetch_kustomization_debug" {
+  value = {
+    for k, v in data.github_repository_file.fetch_kustomization :
+    k => {
+      repo    = regex("github.com/([^/]+/[^\\.]+)", var.team_flux_conf.team.git_repo_url)[0]
+      file    = "${var.team_flux_conf.team.kustomizations[k].path}/kustomization.yaml"
+      branch  = "main"
+      content = try(v.content, "NOT FOUND")
+    }
+  }
+}
