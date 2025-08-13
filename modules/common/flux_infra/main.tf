@@ -45,14 +45,14 @@ resource "github_repository_file" "create_kustomization" {
   overwrite_on_create = true
 }
 
-# output "fetch_kustomization_debug" {
-#   value = {
-#     for k, v in data.github_repository_file.fetch_kustomization :
-#     k => {
-#       repo    = regex("github.com/([^/]+/[^\\.]+)", var.team_flux_conf.team.git_repo_url)[0]
-#       file    = "${var.team_flux_conf.team.kustomizations[k].path}/kustomization.yaml"
-#       branch  = "main"
-#       content = try(v.content, "NOT FOUND")
-#     }
-#   }
-# }
+output "fetch_kustomization_debug" {
+  value = {
+    for k, v in data.github_repository_file.fetch_kustomization :
+    k => {
+      repo    = regex("github.com/([^/]+/[^\\.]+)", var.team_flux_conf.team.git_repo_url)[0]
+      file    = "${var.team_flux_conf.team.kustomizations[k].path}/kustomization.yaml"
+      branch  = "main"
+      content = try(v.content, "NOT FOUND")
+    }
+  }
+}
