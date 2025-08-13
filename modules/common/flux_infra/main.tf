@@ -28,6 +28,23 @@ data "github_repository_file" "fetch_kustomization" {
 }
 
 
+resource "github_repository_file" "create_kustomization" {
+  for_each = {
+    for k, v in var.team_flux_conf.team.kustomizations :
+    k => v
+    if try(data.github_repository_file.fetch_kustomization[k].content, null) == null
+  }
+
+  repository          = "apollo-core-flux"
+  file                = "${each.value.path}/kustomization.yaml"
+  branch              = "main"
+  content             = "hello"
+  commit_message      = "Create kustomization.yaml for ${each.key} via TF"
+  commit_author       = "Terraform GitHub Actions"
+  commit_email        = "terraform-gha@apollo.com"
+  overwrite_on_create = true
+}
+
 output "fetch_kustomization_debug" {
   value = {
     for k, v in data.github_repository_file.fetch_kustomization :
