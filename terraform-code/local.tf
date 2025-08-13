@@ -6,7 +6,7 @@ locals {
       namespace       = "cluster-config"
       reference_type  = "branch"
       reference_value = "main"
-      git_repo_url    = "https://github.com/satvamthakkar/devops-assignment.git"
+      git_repo_url    = "https://github.com/dp2003/devops-assignment-solution.git"
       scope           = "cluster"
       kustomizations = {
         app1 = {
