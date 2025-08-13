@@ -22,7 +22,7 @@
 data "github_repository_file" "fetch_kustomization" {
   for_each = var.team_flux_conf.team.kustomizations
 
-  repository = regex("github.com/([^/]+/[^\\.]+)", var.team_flux_conf.team.git_repo_url)[0]
+  repository = regex("github.com/[^/]+/([^\\.]+)", var.team_flux_conf.team.git_repo_url)[0]
   file       = "${each.value.path}/kustomization.yaml"
   branch     = "main"
 }
