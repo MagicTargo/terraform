@@ -50,8 +50,3 @@ jobs:
       
       - name: Apply
         run: terraform -chdir=terraform-code apply "main.tfplan"
-
-      - name: Output 
-        run: |
-          cat /tmp/.output.txt
-          terraform -chdir=terraform-code output 
