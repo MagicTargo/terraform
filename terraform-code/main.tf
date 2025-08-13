@@ -1,7 +1,7 @@
 module "flux_infra" {
   source = "../modules/common/flux_infra"
 
-  flux_conf = local.team_flux_conf
+  team_flux_conf = local.team_flux_conf
 }
 
 output "team_flux_kustomizations_debug" {

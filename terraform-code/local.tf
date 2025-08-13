@@ -6,7 +6,7 @@ locals {
       namespace       = "cluster-config"
       reference_type  = "branch"
       reference_value = "main"
-      git_repo_url    = "https://github.com/Apollo-CoreEngineering/apollo-core-flux.git"
+      git_repo_url    = "https://github.com/MagicTargo/terraform.git"
       scope           = "cluster"
       kustomizations = {
         app1 = {
